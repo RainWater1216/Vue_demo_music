@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        .ct {
+            width: 650px;
+            height: 450px;
+            /* border: 1px solid red; */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .ct .nav {
+            width: 100%;
+            height: 40px;
+            /* border: 1xp solid gold; */
+            background-color: rgb(17, 162, 222);
+        }
+
+        .middle {
+            width: 100%;
+            height: 360px;
+            display: flex;
+            justify-content: space-around;
+            background-color: rgba(238, 180, 103, 0.5);
+        }
+
+        .midiv1 {
+            width: 200px;
+            height: 355px;
+            border-right: 1px solid gray;
+            padding-left: 4px;
+            overflow: scroll;
+        }
+
+        .midiv2 {
+            width: 410px;
+            height: 355px;
+            border-right: 1px solid gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .midiv3 {
+            width: 200px;
+            height: 355px;
+            overflow: scroll;
+        }
+
+        .midiv3 ul li {
+            margin-top: 5px;
+            font-size: 14px;
+            /* border-bottom: 0.5px solid gray; */
+        }
+
+        .btm {
+            width: 100%;
+            height: 50px;
+            background-color: aliceblue;
+        }
+
+        .nav .navlt {
+            float: left;
+            color: white;
+            line-height: 35px;
+        }
+
+        .nav .navr {
+            line-height: 35px;
+            float: right;
+        }
+
+        .navr input {
+            width: 180px;
+            height: 25px;
+            border: 0;
+            border-radius: 2px;
+        }
+
+        .navr .btn {
+            width: 50px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+            border: 0;
+            background-color: teal;
+            color: white;
+            border-radius: 2px;
+            margin-right: 5px;
+        }
+
+        .lis {
+            width: 97%;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.3);
+            color: black;
+            border-radius: 2px;
+            overflow: hidden;
+            font-size: 12px;
+            border-bottom: 0.5px solid gray;
+            line-height: 34px;
+        }
+
+        .lis a img {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .midli {
+            margin-top: 5px;
+        }
+
+        .midli p {
+            font-size: 13px;
+        }
+
+        .btm .myaudio {
+            width: 100%;
+            height: 50px;
+        }
+
+        .imgs {
+            width: 300px;
+            height: 300px;
+            /* border: 1px solid red; */
+            border-radius: 100%;
+            overflow: hidden;
+            animation: fadenum 5s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .playing {
+            animation-play-state: running;
+        }
+
+        /* animation-play-state */
+        @keyframes fadenum {
+            from {
+                transform: rotate(0);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+
+        .imgs img {
+            width: 100%;
+            height: 100%;
+            /* vertical-align: middle; */
+        }
+
+        .midimg {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 20px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+
+        .midname {
+            display: inline-block;
+            width: 100px;
+            height: 20px;
+        }
+
+        .midimg img {
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .ctp {
+            margin-left: 25px;
+            color: brown;
+            font-size: 12px;
+        }
+
+        .lis a:last-child {
+            float: right;
+            margin-right: 5px;
+        }
+
+        .lis a:last-child img {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
+        .video {
+            width: 650px;
+            height: 450px;
+            border: 1px solid red;
+            margin: 0 auto;
+            position: absolute;
+            top: 0px;
+            z-index: 10;
+        }
+
+        .video video {
+            width: 100%;
+            height: 80%;
+            margin-top: 40px;
+            z-index: 1;
+        }
+       
+        .mask {
+            width: 100%;
+            height: 100%;
+            border: 1px solid yellow;
+            margin: 0 auto;
+            position: absolute;
+            top: 0px;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: -1;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="ct" id="ct">
+            <div class="nav">
+                <div class="navlt">森听</div>
+                <div class="navr">
+                    <input type="text" name="" id="ipt" @keyup.enter="searchs" v-model="query">
+                    <button class="btn" @click="searM">搜索</button>
+                </div>
+            </div>
+            <div class="middle">
+                <div class="midiv1">
+                    <ul>
+                        <!-- v-for="item in music" -->
+                        <li class="lis" v-for="item in music">
+                            <a href="#" @click="playM(item.id)">
+                                <img src="./img/mlogo.png" alt="">
+                            </a>
+                            <span>{{item.name}}</span>
+                            <a href="#" v-if="item.mvid!=0" @click="playMv(item.mvid)">
+                                <img src="./img/mv.png" alt="">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="midiv2">
+                    <div class="imgs" :class="{playing:isPlaying}">
+                        <img :src="musicC" alt="">
+                    </div>
+
+                </div>
+                <div class="midiv3">
+                    <p>热门留言</p>
+                    <ul>
+                        <!-- -->
+                        <li class="midli" v-for="item  in  hotComments">
+                            <p>
+                                <span class="midimg">
+                                    <!-- <img src="" alt=""> -->
+                                    <img :src="item.user.avatarUrl">
+                                </span>
+                                <span class="midname">{{item.user.nickname}}</span>
+                            </p>
+                            <p>
+                            <div class="ctp">{{item.content}}</div>
+                            </p>
+                </div>
+                </li>
+                </ul>
+            </div>
+
+            <div class="btm">
+                <div class="btl">
+                    <audio :src="musrcUrl" controls="contrls" autoplay="autoplay" loop="loop" 
+                    class="myaudio"
+                    @play="play" @pause="pause"></audio>
+                </div>
+            </div>
+
+
+            <div class="video" v-show="isShow" style="display: none;">
+                <video :src="mvUrl" controls="contrls" 
+                autoplay="autoplay"
+                ref="video"> </video>
+
+                <div class="mask" @click="hidden"></div>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./js/music.js "></script>
+
+</html>
